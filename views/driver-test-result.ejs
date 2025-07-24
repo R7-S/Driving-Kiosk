@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <%- include('layouts/header'); -%>
+
+    <main>
+      <h2>Your Test Result</h2>
+      <% if (result) { %>
+        <p>Status: <%= result.pass ? 'Pass' : 'Fail' %></p>
+        <p>Comment: <%= result.comment %></p>
+      <% } else { %>
+        <p>No test results available.</p>
+      <% } %>
+    </main>
+
+    <%- include('layouts/footer'); -%>
+  </body>
+</html>

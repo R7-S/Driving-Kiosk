@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  
+
+  <%- include ('layouts/head'); -%>
+
+  <body>
+    
+    <%- include ('layouts/header'); -%>
+
+    
+    <main>
+      <div class="form-container">
+        <h2>Login</h2>
+
+        
+        <form action="/login/authorization" method="POST">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            required
+          />
+
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <label for="userType">Select User Type:</label>
+          <select id="userType" name="userType" required>
+            <option value="driver">Driver</option>
+            <option value="examiner">Examiner</option>
+            <option value="admin">Admin</option>
+          </select>
+
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </main>
+
+    
+    <%- include ('layouts/footer'); -%>
+  </body>
+</html>

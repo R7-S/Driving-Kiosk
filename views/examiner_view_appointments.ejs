@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ('layouts/head'); -%>
+  <body>
+    <%- include ('layouts/header'); -%>
+
+    <main>
+      <div class="appointments-container">
+        <h2>Appointments Overview</h2>
+
+        <!-- Display appointments -->
+        <table>
+          <thead>
+            <tr>
+              <th>Driver Name</th>
+              <th>License Number</th>
+              <th>Car Make</th>
+              <th>Appointment Date</th>
+              <th>Appointment Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (appointments.length > 0) { %>
+              <% appointments.forEach((appointment) => { %>
+                <tr>
+                  <td><%= appointment.driverName %></td>
+                  <td><%= appointment.licenseNumber %></td>
+                  <td><%= appointment.carMake %></td>
+                  <td><%= appointment.date %></td>
+                  <td><%= appointment.time %></td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="5">No appointments found.</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <%- include ('layouts/footer'); -%>
+  </body>
+</html>

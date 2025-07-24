@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <%- include('layouts/header'); -%>
+
+    <main>
+      <div class="form-container">
+        <h2>G2 Test Booking</h2>
+
+        <form id="g2TestForm">
+          <section class="personal-info">
+            <h3>Personal Information</h3>
+
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="firstName" placeholder="Enter Your First Name" />
+
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="lastName" placeholder="Enter Your Last Name" required />
+
+            <label for="license-number">License Number:</label>
+            <input type="text" id="license-number" name="licenseNumber" maxlength="8" placeholder="Enter Licence-Number" />
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" placeholder="Enter Your Age" required />
+          </section>
+
+          <!-- Car Information Section -->
+          <section class="car-info">
+            <h3>Car Information</h3>
+            <label for="make">Make:</label>
+            <input type="text" id="make" name="make" placeholder="e.g., Honda, Toyota" required />
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" placeholder="e.g., Civic, Corolla" required />
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" placeholder="Year of Manufacture" required />
+
+            <label for="plate-number">Plate Number:</label>
+            <input type="text" id="plate-number" name="plateno" maxlength="8" placeholder="Enter Plate Number" required />
+
+            <!-- Experience Checkbox -->
+            <input type="hidden" name="experience" value="no" />
+            <label>
+              <input type="checkbox" id="experience" name="experience" value="yes" <%= user?.experience === "yes" ? "checked" : "" %> />
+              I am an experienced driver (5+ years)
+            </label>
+
+            <!-- Appointment Booking Section -->
+            <div id="appoint-det">
+              <h1>Book an Appointment</h1>
+              <label for="appointment-date">Choose a Date:</label>
+              <input type="date" id="appointment-date" class="date-picker" />
+
+              <div id="time-slots" class="time-slots hidden">
+                <h2>Available Slots:</h2>
+                <div class="slot-buttons" id="slot-buttons"></div>
+              </div>
+
+              <h3 id="appointment-date-label"></h3>
+              <h3 id="appointment-time"></h3>
+            </div>
+          </section>
+
+          <button id="submit" type="submit">Submit Request</button>
+        </form>
+
+        <form method="GET" action="/g_test" id="go-to-g-form" style="display: none">
+          <button type="submit">Proceed to G Test</button>
+        </form>
+      </div>
+    </main>
+
+    <%- include('layouts/footer'); -%>
+
+    <script src="/js/g2_test.js"></script>
+    <script src="/js/appointment.js"></script>
+    <script>window.userData = <%- JSON.stringify(user) %>;</script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <%- include('layouts/header'); -%>
+
+    <main>
+      <h2>Test Results</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Driver Name</th>
+            <th>Test Result</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% results.forEach(result => { %>
+            <tr>
+              <td><%= result.firstName %> <%= result.lastName %></td>
+              <td><%= result.TestResult.pass ? 'Pass' : 'Fail' %></td>
+              <td><%= result.TestResult.comment %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </main>
+
+    <%- include('layouts/footer'); -%>
+  </body>
+</html>

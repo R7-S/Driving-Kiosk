@@ -1,0 +1,97 @@
+
+<div class="form-container">
+  <h2>Details</h2>
+
+  <form action="#" method="POST">
+    <section class="personal-info">
+      <h3>Personal Information</h3>
+
+      <label for="first-name">First Name:</label>
+      <input
+        type="text"
+        id="first-name"
+        name="firstName"
+        placeholder="Enter Your First Name"
+        disabled
+        value="<%= user.firstName %>"
+      />
+
+      <label for="last-name">Last Name:</label>
+      <input
+        type="text"
+        id="last-name"
+        name="lastName"
+        placeholder="Enter Your Last Name"
+        required
+        disabled
+        value="<%= user.lastName %>"
+      />
+
+      <label for="license-number">License Number:</label>
+      <input
+        type="text"
+        id="license-number"
+        name="licenseNumber"
+        maxlength="8"
+        placeholder="Enter Licence-Number"
+        disabled
+        value="<%= user.licenseNumber %>"
+      />
+
+      <label for="age">Age</label>
+      <input
+        type="text"
+        id="age"
+        name="age"
+        required
+        disabled
+        value="<%= user.age %>"
+      />
+    </section>
+
+    <section class="car-info">
+      <h3>Car Information</h3>
+      <label for="make">Make:</label>
+      <input
+        type="text"
+        id="make"
+        name="make"
+        placeholder="example: Honda, Toyota,..."
+        value="<%= user.carDetails.make %>"
+        required
+      />
+
+      <label for="model">Model:</label>
+      <input
+        type="text"
+        id="model"
+        name="model"
+        placeholder="example: Landcruiser, Civic,...."
+        required
+        value="<%= user.carDetails.model %>"
+      />
+
+      <label for="year">Year:</label>
+      <input
+        type="number"
+        id="year"
+        name="year"
+        placeholder="Enter Year of Manufacture "
+        value="<%= user.carDetails.year %>"
+      />
+
+      <label for="plate-number">Plate Number:</label>
+      <input
+        type="text"
+        id="plate-number"
+        name="plateno"
+        maxlength="8"
+        placeholder="Enter Plate Number"
+        required
+        value="<%= user.carDetails.plateno %>"
+      />
+    </section>
+
+    <button type="submit" id="update">Submit Request</button>
+  </form>
+</div>

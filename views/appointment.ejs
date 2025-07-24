@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+ 
+
+  <%- include ('layouts/head'); -%>
+
+  <body>
+    
+    <%- include ('layouts/header'); -%>
+
+    
+    <main class="booking-main">
+      <h1>Book an Appointment</h1>
+      <label for="appointment-date">Choose a Date:</label>
+      <input type="date" id="appointment-date" class="date-picker" />
+      <div id="time-slots" class="time-slots hidden">
+        <h2>Available Slots:</h2>
+        <div class="slot-buttons" id="slot-buttons"></div>
+      </div>
+      
+      <button id="submit-button" style="display: none;">Submit</button>
+    </main>
+
+     <%- include ('layouts/footer'); -%>
+
+     <script src="/js/appointment.js"></script>
+    </body>
+  </html>

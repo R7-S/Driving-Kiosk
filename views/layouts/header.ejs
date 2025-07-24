@@ -1,0 +1,32 @@
+<header>
+  <div class="container">
+    <h1>Book DriveTest</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Dashboard</a></li>
+
+        <% if (UserId && UserType === 'driver') { %>
+          <li><a href="/g2_test">G2 Test</a></li>
+          <li><a href="/g_test/<%= Username %>">G Test</a></li>
+        <% } %>
+
+        <% if (UserType === 'examiner') { %>
+          <li><a href="/examiner-dashboard">Examiner Dashboard</a></li>
+        <% } %>
+
+        <% if (UserId && UserType === 'admin') { %>
+          <li><a href="/appointment">Appointment</a></li>
+        <% } %>
+
+        <% if (!UserId) { %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        <% } %>
+
+        <% if (UserId) { %>
+          <li><a href="/logout">Logout</a></li>
+        <% } %>
+      </ul>
+    </nav>
+  </div>
+</header>

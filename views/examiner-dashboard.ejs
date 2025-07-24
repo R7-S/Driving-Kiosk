@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <%- include('layouts/header'); -%>
+
+    <main>
+      <h2>Examiner Dashboard</h2>
+      <p>Filter by test type:</p>
+      <form method="GET" action="/examiner-dashboard">
+        <select name="testType" onchange="this.form.submit()">
+          <option value="" <%= testType === '' ? 'selected' : '' %>>All</option>
+          <option value="G2" <%= testType === 'G2' ? 'selected' : '' %>>G2</option>
+          <option value="G" <%= testType === 'G' ? 'selected' : '' %>>G</option>
+        </select>
+      </form>
+      
+      <h3>List of Drivers Ready for Drive Test:</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Driver Name</th>
+            <th>Car Make</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+            <th>Test Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (appointments.length > 0) { %>
+            <% appointments.forEach(appointment => { %>
+              <tr>
+                <td><%= appointment.driverName || 'Unknown' %></td>
+                <td><%= appointment.carMake || 'N/A' %></td>
+                <td><%= appointment.date || 'N/A' %></td>
+                <td><%= appointment.time || 'N/A' %></td>
+                <td><%= appointment.testType %></td> 
+
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="5">No appointments found.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </main>
+
+    <%- include('layouts/footer'); -%>
+  </body>
+</html>
