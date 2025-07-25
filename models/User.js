@@ -9,6 +9,15 @@ const CarDetailsSchema = new Schema({
   plateno: String,
 });
 
+const AppointmentSchema = new Schema({
+  date: String,
+  time: String,
+  appointmentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Appointment",
+  },
+});
+
 const UserSchema = new Schema({
   firstName: {
     type: String,
@@ -53,10 +62,8 @@ const UserSchema = new Schema({
     enum: ["G2", "G"] 
   },
 
-  appointmentId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Appointment",
-  },
+ appointment: AppointmentSchema,
+ 
   Comment: {
     type: String,
   },

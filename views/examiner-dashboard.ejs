@@ -21,6 +21,9 @@
           <tr>
             <th>Driver Name</th>
             <th>Car Make</th>
+            <th>Car Model</th>
+            <th>Car Year</th> 
+            <th>Car Plate</th>
             <th>Appointment Date</th>
             <th>Appointment Time</th>
             <th>Test Type</th>
@@ -32,6 +35,9 @@
               <tr>
                 <td><%= appointment.driverName || 'Unknown' %></td>
                 <td><%= appointment.carMake || 'N/A' %></td>
+                <td><%= appointment.carModel || 'N/A' %></td>
+                <td><%= appointment.carYear || 'N/A' %></td>
+                <td><%= appointment.carPlate || 'N/A' %></td>
                 <td><%= appointment.date || 'N/A' %></td>
                 <td><%= appointment.time || 'N/A' %></td>
                 <td><%= appointment.testType %></td> 

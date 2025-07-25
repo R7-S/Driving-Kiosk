@@ -26,7 +26,7 @@ $(document).ready(function () {
         .text(slot.time)
         .addClass("slot-button")
         .attr("type", "button") // ✅ Prevent accidental form submission
-        .data("appointmentId", slot._id); // ✅ Use _id, not slot.id
+        .data("appointmentId", slot._id || slot.id); // ✅ Use _id, not slot.id
 
       button.on("click", function () {
         $(".slot-button").removeClass("selected");

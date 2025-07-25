@@ -6,9 +6,6 @@ const g2_testPage = async (req, res) => {
   res.render("g2_test", { user });
 };
 
-
-
-
 const g2_testUpdate = async (req, res) => {
   try {
     const userId = req.session.userId;
@@ -33,12 +30,14 @@ const g2_testUpdate = async (req, res) => {
       lastName,
       licenseNumber,
       age,
-      make,
-      model,
-      year,
-      plateno,
       experience,
       TestType: "G2",
+      carDetails: {
+        make,
+        model,
+        year,
+        plateno,
+      },
     };
 
     if (experience !== "yes" && appointmentId) {
@@ -63,7 +62,5 @@ const g2_testUpdate = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
-
 
 module.exports = { g2_testPage, g2_testUpdate };
