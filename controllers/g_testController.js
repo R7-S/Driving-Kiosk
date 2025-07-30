@@ -20,7 +20,8 @@ const g_testGetUser = async (req, res) => {
     // ✅ Allow experienced users OR users with G2 license
     if (!user.licenseNumber && String(user.experience).toLowerCase() !== "yes") {
       console.log("❌ Blocking: No G2 license and not experienced");
-      return res.status(400).send("You must complete your G2 Test first.");
+      return res.render("missing_g2");
+
     }
 
     // ✅ Passed validation

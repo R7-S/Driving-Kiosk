@@ -106,6 +106,12 @@ app.post(
   g2_testUpdate
 );
 
+
+app.get("/missing-g2", (req, res) => {
+  res.render("missing_g2");
+});
+
+
 // G Test Routes
 app.get(
   "/g_test",

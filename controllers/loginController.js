@@ -22,7 +22,7 @@ const loginCreate = async (req, res) => {
         req.session.userId = user._id;
         req.session.username = user.username;
         if (user.userType === "driver") {
-          return res.redirect("/g_test"); 
+          return res.redirect("/g2_test"); 
         } else if (user.userType === "Examiner") {
           return res.redirect("/examiner-dashboard");
         } else if (user.userType === "Admin") {
