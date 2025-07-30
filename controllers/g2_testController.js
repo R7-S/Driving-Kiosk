@@ -22,7 +22,7 @@ const g2_testUpdate = async (req, res) => {
       experience,
       appointmentDate,
       appointmentTime,
-      appointmentId, // ✅ received from frontend
+      appointmentId,
     } = req.body;
 
     const updateFields = {
@@ -31,7 +31,6 @@ const g2_testUpdate = async (req, res) => {
       licenseNumber,
       age,
       experience,
-      TestType: "G2",
       carDetails: {
         make,
         model,
@@ -40,27 +39,27 @@ const g2_testUpdate = async (req, res) => {
       },
     };
 
-    if (experience !== "yes" && appointmentId) {
+    // Only assign TestType and appointment if NOT experienced
+    if (experience?.toLowerCase() !== "yes" && appointmentId) {
+      updateFields.TestType = "G2";
       updateFields.appointment = {
         date: appointmentDate,
         time: appointmentTime,
-        appointmentId: appointmentId, // ✅ store the ID
+        appointmentId,
       };
 
-      // ❗ Update the appointment slot to unavailable
       await Appointment.findByIdAndUpdate(appointmentId, {
         isTimeSlotAvailable: false,
       });
     }
 
-    // ✅ Update the user
     await User.findByIdAndUpdate(userId, updateFields);
-
     return res.redirect("/g_test");
   } catch (error) {
     console.error("Error updating G2 test user:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 module.exports = { g2_testPage, g2_testUpdate };

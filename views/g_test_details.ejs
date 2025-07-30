@@ -1,97 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <%- include('layouts/header'); -%>
 
+    <main>
 <div class="form-container">
   <h2>Details</h2>
 
-  <form action="#" method="POST">
+  <form id="gTestDetailForm">
     <section class="personal-info">
       <h3>Personal Information</h3>
 
       <label for="first-name">First Name:</label>
-      <input
-        type="text"
-        id="first-name"
-        name="firstName"
-        placeholder="Enter Your First Name"
-        disabled
-        value="<%= user.firstName %>"
-      />
+      <input type="text" id="first-name" name="firstName" disabled value="<%= user.firstName %>" />
 
       <label for="last-name">Last Name:</label>
-      <input
-        type="text"
-        id="last-name"
-        name="lastName"
-        placeholder="Enter Your Last Name"
-        required
-        disabled
-        value="<%= user.lastName %>"
-      />
+      <input type="text" id="last-name" name="lastName" disabled value="<%= user.lastName %>" />
 
       <label for="license-number">License Number:</label>
-      <input
-        type="text"
-        id="license-number"
-        name="licenseNumber"
-        maxlength="8"
-        placeholder="Enter Licence-Number"
-        disabled
-        value="<%= user.licenseNumber %>"
-      />
+      <input type="text" id="license-number" name="licenseNumber" disabled value="<%= user.licenseNumber %>" />
 
-      <label for="age">Age</label>
-      <input
-        type="text"
-        id="age"
-        name="age"
-        required
-        disabled
-        value="<%= user.age %>"
-      />
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age" disabled value="<%= user.age %>" />
     </section>
 
     <section class="car-info">
       <h3>Car Information</h3>
+
       <label for="make">Make:</label>
-      <input
-        type="text"
-        id="make"
-        name="make"
-        placeholder="example: Honda, Toyota,..."
-        value="<%= user.carDetails.make %>"
-        required
-      />
+      <input type="text" id="make" name="make" value="<%= user.carDetails.make %>" required />
 
       <label for="model">Model:</label>
-      <input
-        type="text"
-        id="model"
-        name="model"
-        placeholder="example: Landcruiser, Civic,...."
-        required
-        value="<%= user.carDetails.model %>"
-      />
+      <input type="text" id="model" name="model" value="<%= user.carDetails.model %>" required />
 
       <label for="year">Year:</label>
-      <input
-        type="number"
-        id="year"
-        name="year"
-        placeholder="Enter Year of Manufacture "
-        value="<%= user.carDetails.year %>"
-      />
+      <input type="number" id="year" name="year" value="<%= user.carDetails.year %>" />
 
       <label for="plate-number">Plate Number:</label>
-      <input
-        type="text"
-        id="plate-number"
-        name="plateno"
-        maxlength="8"
-        placeholder="Enter Plate Number"
-        required
-        value="<%= user.carDetails.plateno %>"
-      />
+      <input type="text" id="plate-number" name="plateno" value="<%= user.carDetails.plateno %>" maxlength="8" required />
+
+      <div id="appoint-det">
+        <h2>Book an Appointment</h2>
+
+        <label for="appointment-date">Choose a Date:</label>
+        <input type="date" id="appointment-date" class="date-picker" />
+
+        <div id="time-slots" class="time-slots hidden">
+          <h3>Available Slots:</h3>
+          <div class="slot-buttons" id="slot-buttons"></div>
+        </div>
+
+        <h3 id="appointment-date-label"></h3>
+        <h3 id="appointment-time"></h3>
+      </div>
     </section>
 
     <button type="submit" id="update">Submit Request</button>
   </form>
 </div>
+</main>
+ <%- include('layouts/footer'); -%>
+
+<!-- Scripts -->
+<script>
+  window.userData = <%- JSON.stringify(user) %>;
+</script>
+<script src="/js/appointment.js"></script>
+<script src="/js/g_test.js"></script>
