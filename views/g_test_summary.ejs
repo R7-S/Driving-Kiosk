@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <%- include('layouts/header'); -%>
+
+    <main>
+      <div class="form-container">
+        <h2>G Test — Booking Details</h2>
+
+        <% const hasResult = typeof user?.PassFail === 'boolean'; %>
+        <% if (hasResult) { %>
+          <section class="test-result">
+            <h3>Result</h3>
+            <p><strong>Status:</strong> <%= user.PassFail ? 'Pass' : 'Fail' %></p>
+            <p><strong>Examiner Comment:</strong> <%= user.Comment || '—' %></p>
+          </section>
+        <% } %>
+
+        <section>
+          <h3>Booking Summary</h3>
+          <p><strong>Test Type:</strong> <%= user?.TestType || '—' %></p>
+          <p><strong>Date:</strong> <%= user?.appointment?.date || '—' %></p>
+          <p><strong>Time:</strong> <%= user?.appointment?.time || '—' %></p>
+        </section>
+
+        <section class="personal-info">
+          <h3>Personal Information</h3>
+          <p><strong>First Name:</strong> <%= user?.firstName || '—' %></p>
+          <p><strong>Last Name:</strong> <%= user?.lastName || '—' %></p>
+          <p><strong>License Number:</strong> <%= user?.licenseNumber || '—' %></p>
+          <p><strong>Age:</strong> <%= user?.age || '—' %></p>
+          <p><strong>Experienced (5+ years):</strong> <%= (user?.experience || 'no').toString().toUpperCase() %></p>
+        </section>
+
+        <section class="car-info">
+          <h3>Car Information</h3>
+          <p><strong>Make:</strong> <%= user?.carDetails?.make || '—' %></p>
+          <p><strong>Model:</strong> <%= user?.carDetails?.model || '—' %></p>
+          <p><strong>Year:</strong> <%= user?.carDetails?.year || '—' %></p>
+          <p><strong>Plate Number:</strong> <%= user?.carDetails?.plateno || '—' %></p>
+        </section>
+
+        <div style="margin-top:1rem;">
+          <a class="btn" href="/dashboard">Back to Dashboard</a>
+        </div>
+      </div>
+    </main>
+
+    <%- include('layouts/footer'); -%>
+  </body>
+</html>

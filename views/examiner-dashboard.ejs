@@ -11,7 +11,7 @@
         <select name="testType" onchange="this.form.submit()">
           <option value="" <%= testType === '' ? 'selected' : '' %>>All</option>
           <option value="G2" <%= testType === 'G2' ? 'selected' : '' %>>G2</option>
-          <option value="G" <%= testType === 'G' ? 'selected' : '' %>>G</option>
+          <option value="G"  <%= testType === 'G'  ? 'selected' : '' %>>G</option>
         </select>
       </form>
       
@@ -27,6 +27,10 @@
             <th>Appointment Date</th>
             <th>Appointment Time</th>
             <th>Test Type</th>
+            <!-- NEW -->
+            <th>Result</th>
+            <th>Comment</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -40,13 +44,37 @@
                 <td><%= appointment.carPlate || 'N/A' %></td>
                 <td><%= appointment.date || 'N/A' %></td>
                 <td><%= appointment.time || 'N/A' %></td>
-                <td><%= appointment.testType %></td> 
+                <td><%= appointment.testType %></td>
 
+                <!-- NEW: inputs belong to the form in the last cell -->
+                <td>
+                  <select name="passFail" form="f_<%= appointment.userId %>">
+                    <option value="true"  <%= appointment.passFail === true  ? 'selected' : '' %>>Pass</option>
+                    <option value="false" <%= appointment.passFail === false ? 'selected' : '' %>>Fail</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="text"
+                         name="comment"
+                         form="f_<%= appointment.userId %>"
+                         value="<%= appointment.comment || '' %>" />
+                  <input type="hidden"
+                         name="currentFilter"
+                         form="f_<%= appointment.userId %>"
+                         value="<%= testType %>" />
+                </td>
+                <td>
+                  <form method="POST"
+                        id="f_<%= appointment.userId %>"
+                        action="/examiner/result/<%= appointment.userId %>">
+                    <button type="submit">Save</button>
+                  </form>
+                </td>
               </tr>
             <% }) %>
           <% } else { %>
             <tr>
-              <td colspan="5">No appointments found.</td>
+              <td colspan="11">No appointments found.</td>
             </tr>
           <% } %>
         </tbody>

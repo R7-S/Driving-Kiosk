@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/head'); -%>
+  <body>
+    <%- include('layouts/header'); -%>
+    <main>
+      <div class="form-container">
+        <h2>Delete Account</h2>
+        <p>This will permanently delete your account and free any booked test slot.</p>
+        <form method="POST" action="/account/delete">
+          <button type="submit" class="btn btn-danger">Yes, delete my account</button>
+          <a class="btn" href="/dashboard">Cancel</a>
+        </form>
+      </div>
+    </main>
+    <%- include('layouts/footer'); -%>
+  </body>
+</html>

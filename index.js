@@ -34,13 +34,23 @@ const {
 } = require("./controllers/appointmentController");
 const {
   examinerDashboard,
+  updateTestResult, // 👈 added
 } = require("./controllers/examinerDashboardController.js");
+
+const { deleteConfirm, deleteAccount } = require("./controllers/accountController");
 
 const redirectIfLoggedInMiddleware = require("./middlewares/redirectIfLoggedInMiddleware.js");
 const redirectIfNotLoggedInMiddleware = require("./middlewares/redirectIfNotLoggedInMiddleware.js");
 const redirectIfNotDriverMiddleware = require("./middlewares/redirectIfNotDriverMiddleware.js");
 const redirectIfNotAdmin = require("./middlewares/redirectIfNotAdmin.js");
 const redirectIfNotExaminerMiddleware = require("./middlewares/redirectIfNotExaminerMiddleware.js");
+const redirectIfGTestBookedMiddleware = require("./middlewares/redirectIfGTestBookedMiddleware.js");
+
+const showDeleteLinkMiddleware = require("./middlewares/showDeleteLinkMiddleware.js");
+const dashboardLinkMiddleware = require("./middlewares/dashboardLinkMiddleware.js");
+const navBookingFlags = require("./middlewares/navBookingFlags.js");
+
+
 
 // Models
 const Appointment = require("./models/Appointment.js");
@@ -50,7 +60,6 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set("view engine", "ejs");
-
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -76,10 +85,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(4000, () => {
-  console.log("App listening on port 4000");
-});
+app.use(showDeleteLinkMiddleware);
+app.use(dashboardLinkMiddleware);
+app.use(navBookingFlags); 
 
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+    console.log("Listening to port 4000");
+});
 // ROUTES
 app.get("/", indexController);
 
@@ -94,23 +107,21 @@ app.get(
   "/g2_test",
   redirectIfNotLoggedInMiddleware,
   redirectIfNotDriverMiddleware,
+  redirectIfGTestBookedMiddleware, 
   g2_testPage
 );
-
-
 
 app.post(
   "/g2_test/update",
   redirectIfNotLoggedInMiddleware,
   redirectIfNotDriverMiddleware,
+  redirectIfGTestBookedMiddleware, 
   g2_testUpdate
 );
-
 
 app.get("/missing-g2", (req, res) => {
   res.render("missing_g2");
 });
-
 
 // G Test Routes
 app.get(
@@ -151,47 +162,16 @@ app.get(
   examinerDashboard
 );
 
-// TEST RESULT ROUTES
-app.post("/update-test-result/:driverId", async (req, res) => {
-  const { driverId } = req.params;
-  const { comment, passFail } = req.body;
+// ✅ Examiner sets Pass/Fail + Comment
+app.post(
+  "/examiner/result/:driverId",
+  redirectIfNotLoggedInMiddleware,
+  redirectIfNotExaminerMiddleware,
+  updateTestResult
+);
 
-  try {
-    await User.findByIdAndUpdate(driverId, {
-      $set: {
-        "TestResult.comment": comment,
-        "TestResult.pass": passFail === "true",
-      },
-    });
-    res.redirect("/examiner-dashboard");
-  } catch (error) {
-    console.error("Failed to update test result: ", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+// Account delete
+app.get("/account/delete", redirectIfNotLoggedInMiddleware, deleteConfirm);
+app.post("/account/delete", redirectIfNotLoggedInMiddleware, deleteAccount);
 
-app.get("/admin/test-results", async (req, res) => {
-  try {
-    const results = await User.find({
-      "TestResult.pass": { $exists: true },
-    }).select("firstName lastName TestResult");
-    res.render("admin-test-results", { results });
-  } catch (error) {
-    console.error("Error fetching test results: ", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-app.get("/driver/test-result", async (req, res) => {
-  if (!req.session.userId) {
-    return res.redirect("/login");
-  }
-
-  try {
-    const user = await User.findById(req.session.userId).select("TestResult");
-    res.render("driver-test-result", { result: user.TestResult });
-  } catch (error) {
-    console.error("Error fetching user's test result: ", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+module.exports = app;

@@ -3,28 +3,28 @@
     <h1>Book DriveTest</h1>
     <nav>
       <ul>
-        <li><a href="/">Dashboard</a></li>
+        <!-- Role-aware dashboard link -->
+        <li><a href="<%= DashboardURL %>"><%= DashboardLabel || 'Dashboard' %></a></li>
 
-        <% if (UserId && UserType === 'driver') { %>
-          <li><a href="/g2_test">G2 Test</a></li>
-          <li><a href="/g_test/<%= Username %>">G Test</a></li>
-        <% } %>
+       <% const role = (UserType || '').toLowerCase(); %>
 
-        <% if (UserType === 'examiner') { %>
-          <li><a href="/examiner-dashboard">Examiner Dashboard</a></li>
-        <% } %>
-
-        <% if (UserId && UserType === 'admin') { %>
-          <li><a href="/appointment">Appointment</a></li>
+        <% if (UserId && role === 'driver') { %>
+          <!-- Hide G2 if a G test is already booked -->
+          <% if (!HasGBooking) { %>
+            <li><a href="/g2_test">G2 Test</a></li>
+          <% } %>
+          <!-- G Test (session-based; no id/username in URL) -->
+          <li><a href="/g_test">G Test</a></li>
         <% } %>
 
         <% if (!UserId) { %>
           <li><a href="/login">Login</a></li>
           <li><a href="/register">Register</a></li>
-        <% } %>
-
-        <% if (UserId) { %>
+        <% } else { %>
           <li><a href="/logout">Logout</a></li>
+          <% if (showDeleteLink) { %>
+            <li><a href="/account/delete">Delete account</a></li>
+          <% } %>
         <% } %>
       </ul>
     </nav>
